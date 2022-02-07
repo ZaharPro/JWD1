@@ -1,4 +1,4 @@
-package jwd.service.impl;
+package jwd.service;
 
 import edu.epam.jwd.entity.NumberArray;
 import edu.epam.jwd.entity.impl.NumberArrayImpl;

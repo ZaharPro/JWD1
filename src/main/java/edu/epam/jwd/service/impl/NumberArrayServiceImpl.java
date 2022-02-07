@@ -5,6 +5,9 @@ import edu.epam.jwd.entity.impl.NumberArrayImpl;
 import edu.epam.jwd.exception.NumberArrayException;
 import edu.epam.jwd.service.NumberArrayService;
 
+import java.util.Arrays;
+import java.util.function.Predicate;
+
 public class NumberArrayServiceImpl implements NumberArrayService {
 
     @Override
@@ -23,5 +26,15 @@ public class NumberArrayServiceImpl implements NumberArrayService {
     @Override
     public NumberArray fromJavaArray(Number[] array) {
         return new NumberArrayImpl(array);
+    }
+
+    @Override
+    public NumberArray replaceIf(NumberArray array, Predicate<Number> predicate, Number replacement) throws NumberArrayException {
+        Number[] numbers = asJavaArray(array);
+        Number[] mapped = Arrays.stream(numbers)
+                .map(number -> predicate.test(number) ? replacement : number)
+                .map(Number::doubleValue)
+                .toArray(Number[]::new);
+        return fromJavaArray(mapped);
     }
 }

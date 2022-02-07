@@ -5,6 +5,7 @@ import edu.epam.jwd.exception.ReaderArrayException;
 import edu.epam.jwd.service.NumberArrayService;
 import edu.epam.jwd.service.ReaderArrayService;
 import edu.epam.jwd.service.factory.NumberArrayServiceFactory;
+import edu.epam.jwd.validator.NumberArrayValidator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,12 +23,19 @@ public class ReaderArrayServiceImpl implements ReaderArrayService {
         try (Scanner scanner = new Scanner(new File(path)).useDelimiter(delimPattern)) {
             ArrayList<Number> numbers = new ArrayList<>();
             while (scanner.hasNext()) {
-                String token = scanner.next().trim();
-                try {
-                    Double number = Double.parseDouble(token);
-                    numbers.add(number);
-                } catch (NumberFormatException e) {
-                    logger.log(Level.ERROR, String.format("Cannot parse token: '%s'", token));
+                String line = scanner.nextLine();
+                if (NumberArrayValidator.isValidateDigitLine(line)) {
+                    String[] tokens = line.split(delimPattern);
+                    for (String token : tokens) {
+                        try {
+                            Double number = Double.parseDouble(token);
+                            numbers.add(number);
+                        } catch (NumberFormatException e) {
+                            logger.log(Level.ERROR, String.format("Cannot parse token: '%s'", token));
+                        }
+                    }
+                } else {
+                    logger.log(Level.ERROR, String.format("Cannot parse line: '%s'", line));
                 }
             }
             Number[] array = numbers.toArray(EMPTY_ARRAY);
