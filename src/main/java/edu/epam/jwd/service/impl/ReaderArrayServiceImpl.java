@@ -27,11 +27,12 @@ public class ReaderArrayServiceImpl implements ReaderArrayService {
                     Double number = Double.parseDouble(token);
                     numbers.add(number);
                 } catch (NumberFormatException e) {
-                    logger.log(Level.ERROR, "Cannot parse token:" + token);
+                    logger.log(Level.ERROR, String.format("Cannot parse token: '%s'", token));
                 }
             }
             Number[] array = numbers.toArray(EMPTY_ARRAY);
-            NumberArrayService service = NumberArrayServiceFactory.getInstance().getDefaultService();
+            NumberArrayServiceFactory numberArrayServiceFactory = NumberArrayServiceFactory.getInstance();
+            NumberArrayService service = numberArrayServiceFactory.getDefaultService();
             return service.fromJavaArray(array);
         } catch (Exception e) {
             throw new ReaderArrayException(e);

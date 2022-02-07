@@ -13,7 +13,8 @@ public class PrinterArrayServiceImpl implements PrinterArrayService {
     @Override
     public void print(Appendable out, NumberArray array) throws PrinterArrayServiceException {
         try {
-            NumberArrayService service = NumberArrayServiceFactory.getInstance().getDefaultService();
+            NumberArrayServiceFactory numberArrayServiceFactory = NumberArrayServiceFactory.getInstance();
+            NumberArrayService service = numberArrayServiceFactory.getDefaultService();
             Number[] numbers = service.asJavaArray(array);
             out.append(Arrays.toString(numbers));
         } catch (IOException e) {

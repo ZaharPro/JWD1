@@ -18,7 +18,8 @@ public class SortArrayServiceImpl implements SortArrayService {
         if (comparator == null) {
             throw new SortArrayException(new NullPointerException("comparator should be not null"));
         }
-        NumberArrayService service = NumberArrayServiceFactory.getInstance().getDefaultService();
+        NumberArrayServiceFactory numberArrayServiceFactory = NumberArrayServiceFactory.getInstance();
+        NumberArrayService service = numberArrayServiceFactory.getDefaultService();
         Number[] javaArray = service.asJavaArray(array);
         Arrays.sort(javaArray, comparator);
         return service.fromJavaArray(javaArray);

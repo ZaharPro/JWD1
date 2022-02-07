@@ -15,7 +15,8 @@ import java.util.stream.Stream;
 public class CalculationArrayServiceImpl implements CalculationArrayService {
 
     private Stream<Number> streamFrom(NumberArray array) {
-        NumberArrayService service = NumberArrayServiceFactory.getInstance().getDefaultService();
+        NumberArrayServiceFactory numberArrayServiceFactory = NumberArrayServiceFactory.getInstance();
+        NumberArrayService service = numberArrayServiceFactory.getDefaultService();
         return Arrays.stream(service.asJavaArray(array));
     }
 
