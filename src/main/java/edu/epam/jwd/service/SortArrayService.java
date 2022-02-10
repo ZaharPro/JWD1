@@ -6,5 +6,5 @@ import edu.epam.jwd.exception.SortArrayException;
 import java.util.Comparator;
 
 public interface SortArrayService {
-    NumberArray sort(NumberArray array, Comparator<Number> comparator) throws SortArrayException;
+    NumberArray sort(NumberArray array, Comparator<Integer> comparator) throws SortArrayException;
 }

@@ -2,9 +2,7 @@ package edu.epam.jwd.service.impl;
 
 import edu.epam.jwd.entity.NumberArray;
 import edu.epam.jwd.exception.ReaderArrayException;
-import edu.epam.jwd.service.NumberArrayService;
 import edu.epam.jwd.service.ReaderArrayService;
-import edu.epam.jwd.service.factory.NumberArrayServiceFactory;
 import edu.epam.jwd.validator.NumberArrayValidator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -13,23 +11,24 @@ import org.apache.logging.log4j.Logger;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.stream.IntStream;
 
 public class ReaderArrayServiceImpl implements ReaderArrayService {
     private static final Logger logger = LogManager.getLogger();
-    private static final Number[] EMPTY_ARRAY = {};
+    private static final Integer[] EMPTY_ARRAY = {};
 
     @Override
     public NumberArray readFrom(String path, String delimPattern) throws ReaderArrayException {
         try (Scanner scanner = new Scanner(new File(path)).useDelimiter(delimPattern)) {
-            ArrayList<Number> numbers = new ArrayList<>();
+            IntStream.Builder builder = IntStream.builder();
             while (scanner.hasNext()) {
                 String line = scanner.nextLine();
-                if (NumberArrayValidator.isValidateDigitLine(line)) {
+                if (NumberArrayValidator.isValidDigitLine(line)) {
                     String[] tokens = line.split(delimPattern);
                     for (String token : tokens) {
                         try {
-                            Double number = Double.parseDouble(token);
-                            numbers.add(number);
+                            int number = Integer.parseInt(token);
+                            builder.add(number);
                         } catch (NumberFormatException e) {
                             logger.log(Level.ERROR, String.format("Cannot parse token: '%s'", token));
                         }
@@ -38,10 +37,8 @@ public class ReaderArrayServiceImpl implements ReaderArrayService {
                     logger.log(Level.ERROR, String.format("Cannot parse line: '%s'", line));
                 }
             }
-            Number[] array = numbers.toArray(EMPTY_ARRAY);
-            NumberArrayServiceFactory numberArrayServiceFactory = NumberArrayServiceFactory.getInstance();
-            NumberArrayService service = numberArrayServiceFactory.getDefaultService();
-            return service.fromJavaArray(array);
+            int[] array = builder.build().toArray();
+            return new NumberArray(array);
         } catch (Exception e) {
             throw new ReaderArrayException(e);
         }

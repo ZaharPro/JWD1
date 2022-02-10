@@ -1,19 +1,20 @@
 package edu.epam.jwd.service;
 
 import edu.epam.jwd.entity.NumberArray;
-import edu.epam.jwd.exception.CalculationArrayException;
+
+import java.util.OptionalInt;
 
 
 public interface CalculationArrayService {
-    Number findMin(NumberArray array) throws CalculationArrayException;
+    OptionalInt findMin(NumberArray array);
 
-    Number findMax(NumberArray array) throws CalculationArrayException;
+    OptionalInt findMax(NumberArray array);
 
-    Number sum(NumberArray array) throws CalculationArrayException;
+    OptionalInt sum(NumberArray array);
 
-    Number average(NumberArray array) throws CalculationArrayException;
+    OptionalInt average(NumberArray array);
 
-    Number countPositive(NumberArray array) throws CalculationArrayException;
+    long countPositive(NumberArray array);
 
-    Number countNegative(NumberArray array) throws CalculationArrayException;
+    long countNegative(NumberArray array);
 }

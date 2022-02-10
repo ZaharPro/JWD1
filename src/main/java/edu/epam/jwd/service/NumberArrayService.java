@@ -7,11 +7,7 @@ import java.util.Comparator;
 import java.util.function.Predicate;
 
 public interface NumberArrayService {
-    Comparator<Number> DEFAULT_COMPARATOR = Comparator.comparingDouble(Number::doubleValue);
+    Comparator<Integer> DEFAULT_COMPARATOR = Integer::compare;
 
-    Number[] asJavaArray(NumberArray array) throws NumberArrayException;
-
-    NumberArray fromJavaArray(Number[] array) throws NumberArrayException;
-
-    NumberArray replaceIf(NumberArray array, Predicate<Number> predicate,  Number replacement) throws NumberArrayException;
+    NumberArray replaceIf(NumberArray array, Predicate<Integer> predicate, Integer replacement) throws NumberArrayException;
 }
