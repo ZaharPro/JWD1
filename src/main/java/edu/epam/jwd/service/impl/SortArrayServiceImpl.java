@@ -1,18 +1,15 @@
 package edu.epam.jwd.service.impl;
 
-import edu.epam.jwd.entity.NumberArray;
+import edu.epam.jwd.entity.IntArray;
 import edu.epam.jwd.exception.SortArrayException;
-import edu.epam.jwd.service.NumberArrayService;
 import edu.epam.jwd.service.SortArrayService;
-import edu.epam.jwd.service.factory.NumberArrayServiceFactory;
 
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.stream.IntStream;
 
 public class SortArrayServiceImpl implements SortArrayService {
     @Override
-    public NumberArray sort(NumberArray array, Comparator<Integer> comparator) throws SortArrayException {
+    public IntArray sort(IntArray array, Comparator<Integer> comparator) throws SortArrayException {
         if (array == null) {
             throw new SortArrayException(new NullPointerException("array should be not null"));
         }
@@ -26,6 +23,6 @@ public class SortArrayServiceImpl implements SortArrayService {
         int[] result = Arrays.stream(boxed)
                 .mapToInt(n -> n)
                 .toArray();
-        return new NumberArray(result);
+        return new IntArray(result);
     }
 }
