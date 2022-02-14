@@ -42,44 +42,6 @@ public class ObservableRepositoryBase<Id, E extends Entity<Id>> extends Reposito
         }
     }
 
-    /*@Override
-    public E add(E entity) {
-        E e = super.add(entity);
-        notifyListeners();
-        return e;
-    }
-
-    @Override
-    public Iterable<E> addAll(Iterable<E> entities) {
-        Iterable<E> es = super.addAll(entities);
-        notifyListeners();
-        return es;
-    }
-
-    @Override
-    public void update(E entity) {
-        super.update(entity);
-        notifyListeners();
-    }
-
-    @Override
-    public void updateAll(Iterable<E> entities) {
-        super.updateAll(entities);
-        notifyListeners();
-    }
-
-    @Override
-    public void delete(E entity) {
-        super.delete(entity);
-        notifyListeners();
-    }
-
-    @Override
-    public void deleteAll(Iterable<E> entities) {
-        super.deleteAll(entities);
-        notifyListeners();
-    }*/
-
     @Override
     public void save() {
         super.save();

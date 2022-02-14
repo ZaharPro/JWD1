@@ -14,9 +14,15 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public class IntArrayRepositoryImpl extends ObservableListRepository<Integer, IntArray> implements IntArrayRepository {
+    private static final IntArrayRepositoryImpl INSTANCE = new IntArrayRepositoryImpl();
+
+    public static IntArrayRepositoryImpl getInstance() {
+        return INSTANCE;
+    }
+
     private final CalculationArrayService service;
 
-    public IntArrayRepositoryImpl() {
+    private IntArrayRepositoryImpl() {
         super(new Supplier<Integer>() {
             private final AtomicInteger seed = new AtomicInteger();
 
@@ -63,7 +69,9 @@ public class IntArrayRepositoryImpl extends ObservableListRepository<Integer, In
 
     @Override
     public IntArray findFirstArrayWhenMaxFirstElement() {
-        return null;
+        Specification<IntArray> specification = new SpecificationImpl<>();
+        specification.setComparator(IntArrayService.BY_FIRST_ELEMENT);
+        return findBy(specification);
     }
 
     @Override
