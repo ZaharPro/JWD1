@@ -1,8 +1,8 @@
-package edu.epam.jwd.repository;
+package edu.epam.jwd.repository.impl;
 
 import edu.epam.jwd.entity.IntArray;
-import edu.epam.jwd.repository.impl.ObservableListRepository;
-import edu.epam.jwd.repository.impl.SpecificationImpl;
+import edu.epam.jwd.repository.IntArrayRepository;
+import edu.epam.jwd.repository.Specification;
 import edu.epam.jwd.service.CalculationArrayService;
 import edu.epam.jwd.service.IntArrayService;
 import edu.epam.jwd.service.factory.CalculationArrayServiceFactory;
@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-public class IntArrayRepositoryImpl extends ObservableListRepository<Integer, IntArray> implements IntArrayRepository {
+public class IntArrayRepositoryImpl extends ObservableMapRepository<Integer, IntArray> implements IntArrayRepository {
     private static final IntArrayRepositoryImpl INSTANCE = new IntArrayRepositoryImpl();
 
     public static IntArrayRepositoryImpl getInstance() {

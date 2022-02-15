@@ -2,14 +2,12 @@ package edu.epam.jwd.entity;
 
 import edu.epam.jwd.exception.NumberArrayException;
 import edu.epam.jwd.oberver.Listener;
-import edu.epam.jwd.oberver.Observable;
-import edu.epam.jwd.repository.Entity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class IntArray implements Entity<Integer>, Observable<ArrayChangedEvent> {
+public class IntArray implements ObservableEntity<Integer, ArrayChangedEvent> {
     private static void checkRange(int index, int length) throws NumberArrayException {
         if (index < 0 || index >= length) {
             Throwable cause = new IndexOutOfBoundsException(String.format("Index: %d, length: %d", index, length));
@@ -17,7 +15,7 @@ public class IntArray implements Entity<Integer>, Observable<ArrayChangedEvent> 
         }
     }
 
-    private List<Listener<ArrayChangedEvent>> listeners;
+    private final List<Listener<ArrayChangedEvent>> listeners;
     private Integer id;
     private final int[] array;
 
@@ -66,6 +64,22 @@ public class IntArray implements Entity<Integer>, Observable<ArrayChangedEvent> 
     }
 
     @Override
+    public void addListener(Listener<ArrayChangedEvent> listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener");
+        }
+        listeners.add(listener);
+    }
+
+    @Override
+    public void removeListener(Listener<ArrayChangedEvent> listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener");
+        }
+        listeners.remove(listener);
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -85,21 +99,5 @@ public class IntArray implements Entity<Integer>, Observable<ArrayChangedEvent> 
                 .append("array=").append(Arrays.toString(array))
                 .append('}')
                 .toString();
-    }
-
-    @Override
-    public void addListener(Listener<ArrayChangedEvent> listener) {
-        if (listener == null) {
-            throw new NullPointerException("listener");
-        }
-        listeners.add(listener);
-    }
-
-    @Override
-    public void removeListener(Listener<ArrayChangedEvent> listener) {
-        if (listener == null) {
-            throw new NullPointerException("listener");
-        }
-        listeners.remove(listener);
     }
 }

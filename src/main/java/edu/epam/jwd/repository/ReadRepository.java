@@ -1,5 +1,7 @@
 package edu.epam.jwd.repository;
 
+import edu.epam.jwd.entity.Entity;
+
 import java.util.List;
 
 public interface ReadRepository<Id, E extends Entity<Id>> {

@@ -1,4 +1,4 @@
-package edu.epam.jwd.repository;
+package edu.epam.jwd.entity;
 
 public interface Entity<Id> {
     Id getId();

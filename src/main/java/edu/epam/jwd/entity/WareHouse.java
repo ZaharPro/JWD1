@@ -1,51 +1,25 @@
 package edu.epam.jwd.entity;
 
-import edu.epam.jwd.oberver.Listener;
-import edu.epam.jwd.service.CalculationArrayService;
-import edu.epam.jwd.service.factory.CalculationArrayServiceFactory;
+import edu.epam.jwd.repository.impl.ObservableMapRepository;
 
-public class WareHouse implements Listener<ArrayChangedEvent> {
-    private IntArray currentArray;
-    private int min;
-    private int max;
-    private int sum;
-    private int average;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Supplier;
 
-    public int getMin() {
-        return min;
+public class WareHouse extends ObservableMapRepository<Integer, ArrayStatistics> {
+    private static final WareHouse INSTANCE = new WareHouse();
+
+    public static WareHouse getInstance() {
+        return INSTANCE;
     }
 
-    public int getMax() {
-        return max;
-    }
+    private WareHouse() {
+        super(new Supplier<Integer>() {
+            private final AtomicInteger seed = new AtomicInteger();
 
-    public int getSum() {
-        return sum;
-    }
-
-    public int getAverage() {
-        return average;
-    }
-
-    public IntArray getCurrentArray() {
-        return currentArray;
-    }
-
-    public boolean isValidData() {
-        return getCurrentArray() != null && getCurrentArray().length() != 0;
-    }
-
-    @Override
-    public void accept(ArrayChangedEvent event) {
-        IntArray array = event.getSource();
-        currentArray = array;
-        if (isValidData()) {
-            CalculationArrayServiceFactory serviceFactory = CalculationArrayServiceFactory.getInstance();
-            CalculationArrayService service = serviceFactory.getDefaultService();
-            min = service.findMin(array).orElse(Integer.MIN_VALUE);
-            max = service.findMax(array).orElse(Integer.MIN_VALUE);
-            sum = service.sum(array).orElse(Integer.MIN_VALUE);
-            average = service.average(array).orElse(Integer.MIN_VALUE);
-        }
+            @Override
+            public Integer get() {
+                return seed.incrementAndGet();
+            }
+        });
     }
 }

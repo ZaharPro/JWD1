@@ -1,6 +1,6 @@
 package edu.epam.jwd.repository.impl;
 
-import edu.epam.jwd.repository.Entity;
+import edu.epam.jwd.entity.Entity;
 import edu.epam.jwd.repository.Repository;
 import edu.epam.jwd.repository.Specification;
 
@@ -34,6 +34,7 @@ public abstract class RepositoryBase<Id, E extends Entity<Id>> implements Reposi
         }
         return stream;
     }
+
     @Override
     public boolean any() {
         return count() != 0;

@@ -2,7 +2,7 @@ package edu.epam.jwd.repository.impl;
 
 import edu.epam.jwd.repository.RepositoryChangedEvent;
 import edu.epam.jwd.oberver.Listener;
-import edu.epam.jwd.repository.Entity;
+import edu.epam.jwd.entity.Entity;
 import edu.epam.jwd.repository.ObservableRepository;
 import edu.epam.jwd.repository.Repository;
 

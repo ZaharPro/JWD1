@@ -1,6 +1,6 @@
 package edu.epam.jwd.repository.impl;
 
-import edu.epam.jwd.repository.Entity;
+import edu.epam.jwd.entity.Entity;
 import edu.epam.jwd.repository.Specification;
 
 import java.util.*;
@@ -8,11 +8,11 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class ListRepository<Id, E extends Entity<Id>> extends RepositoryBase<Id, E> {
+public class MapRepository<Id, E extends Entity<Id>> extends RepositoryBase<Id, E> {
     private final Supplier<Id> idGenerator;
     private final Map<Id, E> entities;
 
-    public ListRepository(Supplier<Id> idGenerator) {
+    public MapRepository(Supplier<Id> idGenerator) {
         this.idGenerator = idGenerator;
         this.entities = new HashMap<>();
     }

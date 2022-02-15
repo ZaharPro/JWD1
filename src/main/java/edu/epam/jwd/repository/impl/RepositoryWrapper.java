@@ -1,6 +1,6 @@
 package edu.epam.jwd.repository.impl;
 
-import edu.epam.jwd.repository.Entity;
+import edu.epam.jwd.entity.Entity;
 import edu.epam.jwd.repository.Repository;
 import edu.epam.jwd.repository.Specification;
 
