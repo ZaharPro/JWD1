@@ -1,7 +1,6 @@
 package edu.epam.jwd._main;
 
 import edu.epam.jwd.entity.IntArray;
-import edu.epam.jwd.exception.BaseRuntimeException;
 import edu.epam.jwd.service.*;
 import edu.epam.jwd.service.factory.*;
 import org.apache.logging.log4j.Level;
@@ -54,7 +53,7 @@ public class Main {
             out.println("Replaced:");
             printerArrayService.print(out, replaced);
             out.println();
-        } catch (BaseRuntimeException e) {
+        } catch (Exception e) {
             Logger logger = LogManager.getLogger();
             logger.log(Level.ERROR, e);
         } finally {

@@ -1,10 +1,11 @@
 package edu.epam.jwd.entity;
 
-import edu.epam.jwd.oberver.Listener;
+import edu.epam.jwd.event.ArrayChangeEvent;
+import edu.epam.jwd.observer.EventListener;
 import edu.epam.jwd.service.CalculationArrayService;
 import edu.epam.jwd.service.factory.CalculationArrayServiceFactory;
 
-public class ArrayStatistics implements Listener<ArrayChangedEvent>, Entity<Integer> {
+public class ArrayStatistics implements EventListener<ArrayChangeEvent>, Entity<Integer> {
     private Integer id;
     private IntArray currentArray;
     private int min;
@@ -47,7 +48,7 @@ public class ArrayStatistics implements Listener<ArrayChangedEvent>, Entity<Inte
     }
 
     @Override
-    public void accept(ArrayChangedEvent event) {
+    public void accept(ArrayChangeEvent event) {
         IntArray array = event.getSource();
         currentArray = array;
         if (isValidData()) {

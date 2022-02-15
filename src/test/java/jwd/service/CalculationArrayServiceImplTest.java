@@ -1,6 +1,7 @@
 package jwd.service;
 
 import edu.epam.jwd.entity.IntArray;
+import edu.epam.jwd.exception.SuperException;
 import edu.epam.jwd.service.impl.CalculationArrayServiceImpl;
 import org.testng.annotations.Test;
 
@@ -11,28 +12,28 @@ import static org.testng.Assert.*;
 public class CalculationArrayServiceImplTest {
 
     @Test(groups = "CalculationArrayException")
-    public void testFindMinIfArrayEmpty() {
+    public void testFindMinIfArrayEmpty() throws SuperException {
         CalculationArrayServiceImpl service = new CalculationArrayServiceImpl();
         OptionalInt min = service.findMin(new IntArray(new int[0]));
         assertFalse(min.isPresent());
     }
 
     @Test(groups = "CalculationArrayException")
-    public void testFindMaxIfArrayEmpty() {
+    public void testFindMaxIfArrayEmpty() throws SuperException {
         CalculationArrayServiceImpl service = new CalculationArrayServiceImpl();
         OptionalInt max = service.findMax(new IntArray(new int[0]));
         assertFalse(max.isPresent());
     }
 
     @Test(groups = "CalculationArrayException")
-    public void testSumIfArrayEmpty() {
+    public void testSumIfArrayEmpty() throws SuperException {
         CalculationArrayServiceImpl service = new CalculationArrayServiceImpl();
         OptionalInt sum = service.sum(new IntArray(new int[0]));
         assertFalse(sum.isPresent());
     }
 
     @Test(groups = "CalculationArrayException")
-    public void testAverageIfArrayEmpty() {
+    public void testAverageIfArrayEmpty() throws SuperException {
         CalculationArrayServiceImpl service = new CalculationArrayServiceImpl();
         OptionalInt average = service.average(new IntArray(new int[0]));
         assertFalse(average.isPresent());
@@ -40,7 +41,7 @@ public class CalculationArrayServiceImplTest {
 
     ///
     @Test(groups = "CalculationArrayException")
-    public void testFindMin() {
+    public void testFindMin() throws SuperException {
         CalculationArrayServiceImpl service = new CalculationArrayServiceImpl();
         OptionalInt min = service.findMin(new IntArray(new int[]{1, 2, 3}));
         assertTrue(min.isPresent());
@@ -48,7 +49,7 @@ public class CalculationArrayServiceImplTest {
     }
 
     @Test(groups = "CalculationArrayException")
-    public void testFindMax() {
+    public void testFindMax() throws SuperException {
         CalculationArrayServiceImpl service = new CalculationArrayServiceImpl();
         OptionalInt max = service.findMax(new IntArray(new int[]{1, 2, 3}));
         assertTrue(max.isPresent());
@@ -56,7 +57,7 @@ public class CalculationArrayServiceImplTest {
     }
 
     @Test(groups = "CalculationArrayException")
-    public void testSum() {
+    public void testSum() throws SuperException {
         CalculationArrayServiceImpl service = new CalculationArrayServiceImpl();
         OptionalInt sum = service.sum(new IntArray(new int[]{1, 2, 3}));
         assertTrue(sum.isPresent());
@@ -64,7 +65,7 @@ public class CalculationArrayServiceImplTest {
     }
 
     @Test(groups = "CalculationArrayException")
-    public void testAverage() {
+    public void testAverage() throws SuperException {
         CalculationArrayServiceImpl service = new CalculationArrayServiceImpl();
         OptionalInt average = service.average(new IntArray(new int[]{1, 2, 3}));
         assertTrue(average.isPresent());
@@ -72,14 +73,14 @@ public class CalculationArrayServiceImplTest {
     }
 
     @Test(groups = "CalculationArrayException")
-    public void testCountPositive() {
+    public void testCountPositive() throws SuperException {
         CalculationArrayServiceImpl service = new CalculationArrayServiceImpl();
         long count = service.countPositive(new IntArray(new int[]{1, -2, -1, 2, -3, 3}));
         assertEquals(count, 3.0);
     }
 
     @Test(groups = "CalculationArrayException")
-    public void testCountNegative() {
+    public void testCountNegative() throws SuperException {
         CalculationArrayServiceImpl service = new CalculationArrayServiceImpl();
         long count = service.countNegative(new IntArray(new int[]{1, -2, -1, 2, -3, 3}));
         assertEquals(count, 3.0);

@@ -1,7 +1,7 @@
 package edu.epam.jwd.service.impl;
 
 import edu.epam.jwd.entity.IntArray;
-import edu.epam.jwd.exception.ReaderArrayException;
+import edu.epam.jwd.exception.SuperException;
 import edu.epam.jwd.service.ReaderArrayService;
 import edu.epam.jwd.validator.NumberArrayValidator;
 import org.apache.logging.log4j.Level;
@@ -17,7 +17,7 @@ public class ReaderArrayServiceImpl implements ReaderArrayService {
     private static final Integer[] EMPTY_ARRAY = {};
 
     @Override
-    public IntArray readFrom(String path, String delimPattern) throws ReaderArrayException {
+    public IntArray readFrom(String path, String delimPattern) throws SuperException {
         try (Scanner scanner = new Scanner(new File(path)).useDelimiter(delimPattern)) {
             IntStream.Builder builder = IntStream.builder();
             while (scanner.hasNext()) {
@@ -39,7 +39,7 @@ public class ReaderArrayServiceImpl implements ReaderArrayService {
             int[] array = builder.build().toArray();
             return new IntArray(array);
         } catch (Exception e) {
-            throw new ReaderArrayException(e);
+            throw new SuperException(e);
         }
     }
 }

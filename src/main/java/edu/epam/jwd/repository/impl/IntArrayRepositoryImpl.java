@@ -1,20 +1,33 @@
 package edu.epam.jwd.repository.impl;
 
 import edu.epam.jwd.entity.IntArray;
+import edu.epam.jwd.exception.SuperException;
 import edu.epam.jwd.repository.IntArrayRepository;
 import edu.epam.jwd.repository.Specification;
 import edu.epam.jwd.service.CalculationArrayService;
 import edu.epam.jwd.service.IntArrayService;
 import edu.epam.jwd.service.factory.CalculationArrayServiceFactory;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 import java.util.OptionalInt;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public class IntArrayRepositoryImpl extends ObservableMapRepository<Integer, IntArray> implements IntArrayRepository {
-    private static final IntArrayRepositoryImpl INSTANCE = new IntArrayRepositoryImpl();
+    private static final IntArrayRepositoryImpl INSTANCE;
+
+    static {
+        try {
+            INSTANCE = new IntArrayRepositoryImpl();
+        } catch (SuperException e) {
+            Logger logger = LogManager.getLogger();
+            logger.log(Level.ERROR, e);
+            throw new Error(e);
+        }
+    }
 
     public static IntArrayRepositoryImpl getInstance() {
         return INSTANCE;
@@ -22,13 +35,13 @@ public class IntArrayRepositoryImpl extends ObservableMapRepository<Integer, Int
 
     private final CalculationArrayService service;
 
-    private IntArrayRepositoryImpl() {
+    private IntArrayRepositoryImpl() throws SuperException {
         super(new Supplier<Integer>() {
-            private final AtomicInteger seed = new AtomicInteger();
+            private int seed = 0;
 
             @Override
             public Integer get() {
-                return seed.incrementAndGet();
+                return ++seed;
             }
         });
         this.service = CalculationArrayServiceFactory.getInstance().getDefaultService();

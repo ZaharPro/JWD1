@@ -1,27 +1,22 @@
 package edu.epam.jwd.entity;
 
-import edu.epam.jwd.exception.NumberArrayException;
-import edu.epam.jwd.oberver.Listener;
+import edu.epam.jwd.event.ArrayChangeEvent;
+import edu.epam.jwd.exception.SuperException;
+import edu.epam.jwd.observer.EventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class IntArray implements ObservableEntity<Integer, ArrayChangedEvent> {
-    private static void checkRange(int index, int length) throws NumberArrayException {
-        if (index < 0 || index >= length) {
-            Throwable cause = new IndexOutOfBoundsException(String.format("Index: %d, length: %d", index, length));
-            throw new NumberArrayException(cause);
-        }
-    }
+public class IntArray implements ObservableEntity<Integer, ArrayChangeEvent> {
 
-    private final List<Listener<ArrayChangedEvent>> listeners;
     private Integer id;
     private final int[] array;
+    private final List<EventListener<ArrayChangeEvent>> listeners;
 
-    public IntArray(int[] array) throws NumberArrayException {
+    public IntArray(int[] array) throws SuperException {
         if (array == null) {
-            throw new NumberArrayException(new NullPointerException("array should be not null"));
+            throw new SuperException("array should be not null");
         }
         this.array = array.clone();
         this.listeners = new ArrayList<>();
@@ -41,40 +36,47 @@ public class IntArray implements ObservableEntity<Integer, ArrayChangedEvent> {
         return array.length;
     }
 
-    public int get(int index) throws NumberArrayException {
+    private void checkRange(int index, int length) throws SuperException {
+        if (index < 0 || index >= length) {
+            Throwable cause = new IndexOutOfBoundsException(String.format("Index: %d, length: %d", index, length));
+            throw new SuperException(cause);
+        }
+    }
+
+    public int get(int index) throws SuperException {
         checkRange(index, length());
         return array[index];
     }
 
-    public void set(int number, int index) throws NumberArrayException {
+    public void set(int number, int index) throws SuperException {
         checkRange(index, length());
         array[index] = number;
         onElementChanged(number, index);
     }
 
-    private void onElementChanged(int number, int index) {
+    private void onElementChanged(int number, int index) throws SuperException {
         if (!listeners.isEmpty()) {
-            ArrayChangedEvent event = new ArrayChangedEvent(this, number, index);
+            ArrayChangeEvent event = new ArrayChangeEvent(this, number, index);
             listeners.forEach(listener -> listener.accept(event));
         }
     }
 
-    public int[] asJavaArray() throws NumberArrayException {
+    public int[] asJavaArray() {
         return array.clone();
     }
 
     @Override
-    public void addListener(Listener<ArrayChangedEvent> listener) {
+    public void addListener(EventListener<ArrayChangeEvent> listener) throws SuperException {
         if (listener == null) {
-            throw new NullPointerException("listener");
+            throw new SuperException("listener");
         }
         listeners.add(listener);
     }
 
     @Override
-    public void removeListener(Listener<ArrayChangedEvent> listener) {
+    public void removeListener(EventListener<ArrayChangeEvent> listener) throws SuperException {
         if (listener == null) {
-            throw new NullPointerException("listener");
+            throw new SuperException("listener");
         }
         listeners.remove(listener);
     }

@@ -1,12 +1,13 @@
-package edu.epam.jwd.entity;
+package edu.epam.jwd.event;
 
-import edu.epam.jwd.oberver.Event;
+import edu.epam.jwd.entity.IntArray;
+import edu.epam.jwd.exception.SuperException;
 
-public class ArrayChangedEvent extends Event {
+public class ArrayChangeEvent extends Event {
     private final int number;
     private final int index;
 
-    public ArrayChangedEvent(IntArray source, int number, int index) {
+    public ArrayChangeEvent(IntArray source, int number, int index) throws SuperException {
         super(source);
         this.number = number;
         this.index = index;
