@@ -1,7 +1,7 @@
 package jwd.service;
 
 import edu.epam.jwd.entity.IntArray;
-import edu.epam.jwd.exception.SuperException;
+import edu.epam.jwd.exception.CustomException;
 import edu.epam.jwd.service.IntArrayService;
 import edu.epam.jwd.service.impl.IntArrayServiceImpl;
 import org.testng.annotations.Test;
@@ -13,7 +13,7 @@ import static org.testng.Assert.assertTrue;
 public class IntArrayServiceTest {
 
     @Test(groups = "CalculationArrayException")
-    public void testReplacing() throws SuperException {
+    public void testReplacing() throws CustomException {
         IntArrayService service = new IntArrayServiceImpl();
         IntArray original = new IntArray(new int[]{1, -2, 3, 4, -5, 6});
         IntArray replaced = service.replaceIf(original, (n) -> n < 0, 12);

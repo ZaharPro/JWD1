@@ -1,6 +1,6 @@
 package edu.epam.jwd.entity;
 
-import edu.epam.jwd.exception.SuperException;
+import edu.epam.jwd.exception.CustomException;
 import edu.epam.jwd.repository.impl.ObservableMapRepository;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -14,7 +14,7 @@ public class WareHouse extends ObservableMapRepository<Integer, ArrayStatistics>
     static {
         try {
             INSTANCE = new WareHouse();
-        } catch (SuperException e) {
+        } catch (CustomException e) {
             Logger logger = LogManager.getLogger();
             logger.log(Level.ERROR, e);
             throw new Error(e);
@@ -25,7 +25,7 @@ public class WareHouse extends ObservableMapRepository<Integer, ArrayStatistics>
         return INSTANCE;
     }
 
-    private WareHouse() throws SuperException {
+    private WareHouse() throws CustomException {
         super(new Supplier<Integer>() {
             private int seed = 0;
 

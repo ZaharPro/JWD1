@@ -14,7 +14,7 @@ public class CalculationArrayServiceFactory implements ServiceFactory<Calculatio
     private final CalculationArrayServiceImpl DEFAULT = new CalculationArrayServiceImpl();
 
     @Override
-    public CalculationArrayService getDefaultService() {
+    public CalculationArrayService getService() {
         return DEFAULT;
     }
 }

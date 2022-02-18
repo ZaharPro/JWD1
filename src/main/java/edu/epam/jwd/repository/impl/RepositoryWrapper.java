@@ -1,7 +1,7 @@
 package edu.epam.jwd.repository.impl;
 
 import edu.epam.jwd.entity.Entity;
-import edu.epam.jwd.exception.SuperException;
+import edu.epam.jwd.exception.CustomException;
 import edu.epam.jwd.repository.Repository;
 import edu.epam.jwd.repository.Specification;
 
@@ -10,7 +10,7 @@ import java.util.List;
 public class RepositoryWrapper<Id, E extends Entity<Id>> implements Repository<Id, E> {
     private Repository<Id, E> innerRepository;
 
-    public RepositoryWrapper(Repository<Id, E> innerRepository) throws SuperException {
+    public RepositoryWrapper(Repository<Id, E> innerRepository) throws CustomException {
         setInnerRepository(innerRepository);
     }
 
@@ -18,9 +18,9 @@ public class RepositoryWrapper<Id, E extends Entity<Id>> implements Repository<I
         return innerRepository;
     }
 
-    public void setInnerRepository(Repository<Id, E> innerRepository) throws SuperException {
+    public void setInnerRepository(Repository<Id, E> innerRepository) throws CustomException {
         if (innerRepository == null) {
-            throw new SuperException("innerRepository");
+            throw new CustomException("innerRepository");
         }
         this.innerRepository = innerRepository;
     }

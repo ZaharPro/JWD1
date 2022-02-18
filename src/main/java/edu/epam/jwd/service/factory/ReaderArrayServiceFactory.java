@@ -14,7 +14,7 @@ public class ReaderArrayServiceFactory implements ServiceFactory<ReaderArrayServ
     private final ReaderArrayServiceImpl DEFAULT = new ReaderArrayServiceImpl();
 
     @Override
-    public ReaderArrayService getDefaultService() {
+    public ReaderArrayService getService() {
         return DEFAULT;
     }
 }

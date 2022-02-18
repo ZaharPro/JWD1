@@ -1,7 +1,7 @@
 package edu.epam.jwd.service;
 
 import edu.epam.jwd.entity.IntArray;
-import edu.epam.jwd.exception.SuperException;
+import edu.epam.jwd.exception.CustomException;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,7 +17,7 @@ public interface IntArrayService {
         if (o1.length() > 0 && o2.length() > 0) {
             try {
                 return Integer.compare(o1.get(0), o2.get(0));
-            } catch (SuperException e) {
+            } catch (CustomException e) {
                 Logger logger = LogManager.getLogger();
                 logger.log(Level.ERROR, e);
             }
@@ -25,5 +25,5 @@ public interface IntArrayService {
         return BY_LENGTH.compare(o1, o2);
     };
 
-    IntArray replaceIf(IntArray array, Predicate<Integer> predicate, Integer replacement) throws SuperException;
+    IntArray replaceIf(IntArray array, Predicate<Integer> predicate, Integer replacement) throws CustomException;
 }

@@ -14,7 +14,7 @@ public class PrinterArrayServiceFactory implements ServiceFactory<PrinterArraySe
     private static final PrinterArrayServiceImpl DEFAULT = new PrinterArrayServiceImpl();
 
     @Override
-    public PrinterArrayService getDefaultService() {
+    public PrinterArrayService getService() {
         return DEFAULT;
     }
 }

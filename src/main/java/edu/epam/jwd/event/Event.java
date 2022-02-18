@@ -1,13 +1,13 @@
 package edu.epam.jwd.event;
 
-import edu.epam.jwd.exception.SuperException;
+import edu.epam.jwd.exception.CustomException;
 
 public class Event {
     private final Object source;
 
-    public Event(Object source) throws SuperException {
+    public Event(Object source) throws CustomException {
         if (source == null) {
-            throw new SuperException("source");
+            throw new CustomException("source");
         }
         this.source = source;
     }

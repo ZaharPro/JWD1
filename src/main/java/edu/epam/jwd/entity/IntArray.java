@@ -1,7 +1,7 @@
 package edu.epam.jwd.entity;
 
 import edu.epam.jwd.event.ArrayChangeEvent;
-import edu.epam.jwd.exception.SuperException;
+import edu.epam.jwd.exception.CustomException;
 import edu.epam.jwd.observer.EventListener;
 
 import java.util.ArrayList;
@@ -14,9 +14,9 @@ public class IntArray implements ObservableEntity<Integer, ArrayChangeEvent> {
     private final int[] array;
     private final List<EventListener<ArrayChangeEvent>> listeners;
 
-    public IntArray(int[] array) throws SuperException {
+    public IntArray(int[] array) throws CustomException {
         if (array == null) {
-            throw new SuperException("array should be not null");
+            throw new CustomException("array should be not null");
         }
         this.array = array.clone();
         this.listeners = new ArrayList<>();
@@ -36,25 +36,25 @@ public class IntArray implements ObservableEntity<Integer, ArrayChangeEvent> {
         return array.length;
     }
 
-    private void checkRange(int index, int length) throws SuperException {
+    private void checkRange(int index, int length) throws CustomException {
         if (index < 0 || index >= length) {
             Throwable cause = new IndexOutOfBoundsException(String.format("Index: %d, length: %d", index, length));
-            throw new SuperException(cause);
+            throw new CustomException(cause);
         }
     }
 
-    public int get(int index) throws SuperException {
+    public int get(int index) throws CustomException {
         checkRange(index, length());
         return array[index];
     }
 
-    public void set(int number, int index) throws SuperException {
+    public void set(int number, int index) throws CustomException {
         checkRange(index, length());
         array[index] = number;
         onElementChanged(number, index);
     }
 
-    private void onElementChanged(int number, int index) throws SuperException {
+    private void onElementChanged(int number, int index) throws CustomException {
         if (!listeners.isEmpty()) {
             ArrayChangeEvent event = new ArrayChangeEvent(this, number, index);
             listeners.forEach(listener -> listener.accept(event));
@@ -66,17 +66,17 @@ public class IntArray implements ObservableEntity<Integer, ArrayChangeEvent> {
     }
 
     @Override
-    public void addListener(EventListener<ArrayChangeEvent> listener) throws SuperException {
+    public void addListener(EventListener<ArrayChangeEvent> listener) throws CustomException {
         if (listener == null) {
-            throw new SuperException("listener");
+            throw new CustomException("listener");
         }
         listeners.add(listener);
     }
 
     @Override
-    public void removeListener(EventListener<ArrayChangeEvent> listener) throws SuperException {
+    public void removeListener(EventListener<ArrayChangeEvent> listener) throws CustomException {
         if (listener == null) {
-            throw new SuperException("listener");
+            throw new CustomException("listener");
         }
         listeners.remove(listener);
     }

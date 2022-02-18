@@ -14,7 +14,7 @@ public class SortArrayServiceFactory implements ServiceFactory<SortArrayService>
     private static final SortArrayServiceImpl DEFAULT = new SortArrayServiceImpl();
 
     @Override
-    public SortArrayService getDefaultService() {
+    public SortArrayService getService() {
         return DEFAULT;
     }
 }

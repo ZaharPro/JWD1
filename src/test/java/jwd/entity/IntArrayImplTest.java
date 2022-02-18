@@ -1,7 +1,7 @@
 package jwd.entity;
 
 import edu.epam.jwd.entity.IntArray;
-import edu.epam.jwd.exception.SuperException;
+import edu.epam.jwd.exception.CustomException;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertThrows;
@@ -9,18 +9,18 @@ import static org.testng.Assert.assertThrows;
 public class IntArrayImplTest {
     @Test(groups = "NumberArrayException")
     public void testNumberArrayIsNull() {
-        assertThrows(SuperException.class, () -> new IntArray(null));
+        assertThrows(CustomException.class, () -> new IntArray(null));
     }
 
     @Test(groups = "NumberArrayException")
-    public void testNumberArrayGetIllegalIndex() throws SuperException {
+    public void testNumberArrayGetIllegalIndex() throws CustomException {
         IntArray intArray = new IntArray(new int[]{1, 2, 3});
-        assertThrows(SuperException.class, () -> intArray.get(5));
+        assertThrows(CustomException.class, () -> intArray.get(5));
     }
 
     @Test(groups = "NumberArrayException")
-    public void testNumberArraySetIllegalIndex() throws SuperException {
+    public void testNumberArraySetIllegalIndex() throws CustomException {
         IntArray intArray = new IntArray(new int[]{1, 2, 3});
-        assertThrows(SuperException.class, () -> intArray.set(5, -1));
+        assertThrows(CustomException.class, () -> intArray.set(5, -1));
     }
 }

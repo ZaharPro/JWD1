@@ -1,7 +1,7 @@
 package edu.epam.jwd.repository.impl;
 
 import edu.epam.jwd.entity.IntArray;
-import edu.epam.jwd.exception.SuperException;
+import edu.epam.jwd.exception.CustomException;
 import edu.epam.jwd.repository.IntArrayRepository;
 import edu.epam.jwd.repository.Specification;
 import edu.epam.jwd.service.CalculationArrayService;
@@ -22,7 +22,7 @@ public class IntArrayRepositoryImpl extends ObservableMapRepository<Integer, Int
     static {
         try {
             INSTANCE = new IntArrayRepositoryImpl();
-        } catch (SuperException e) {
+        } catch (CustomException e) {
             Logger logger = LogManager.getLogger();
             logger.log(Level.ERROR, e);
             throw new Error(e);
@@ -35,7 +35,7 @@ public class IntArrayRepositoryImpl extends ObservableMapRepository<Integer, Int
 
     private final CalculationArrayService service;
 
-    private IntArrayRepositoryImpl() throws SuperException {
+    private IntArrayRepositoryImpl() throws CustomException {
         super(new Supplier<Integer>() {
             private int seed = 0;
 
@@ -44,7 +44,7 @@ public class IntArrayRepositoryImpl extends ObservableMapRepository<Integer, Int
                 return ++seed;
             }
         });
-        this.service = CalculationArrayServiceFactory.getInstance().getDefaultService();
+        this.service = CalculationArrayServiceFactory.getInstance().getService();
     }
 
     @Override

@@ -7,12 +7,12 @@ import org.apache.logging.log4j.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class NumberArrayValidator {
+public class IntArrayValidator {
     private static final Logger LOGGER = LogManager.getLogger();
     private static final String NUMBER_REGEX = "^[-?\\d+\\s]+$";
     private static final Pattern NUMBER_PATTERN = Pattern.compile(NUMBER_REGEX);
 
-    private NumberArrayValidator() {
+    private IntArrayValidator() {
     }
 
     public static boolean isValidDigitLine(String line) {

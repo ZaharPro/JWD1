@@ -53,7 +53,7 @@ public class ArrayStatistics implements EventListener<ArrayChangeEvent>, Entity<
         currentArray = array;
         if (isValidData()) {
             CalculationArrayServiceFactory serviceFactory = CalculationArrayServiceFactory.getInstance();
-            CalculationArrayService service = serviceFactory.getDefaultService();
+            CalculationArrayService service = serviceFactory.getService();
             min = service.findMin(array).orElse(Integer.MIN_VALUE);
             max = service.findMax(array).orElse(Integer.MIN_VALUE);
             sum = service.sum(array).orElse(Integer.MIN_VALUE);

@@ -15,18 +15,18 @@ public class Main {
         PrintStream out = System.out;
         try {
             ReaderArrayServiceFactory readerArrayServiceFactory = ReaderArrayServiceFactory.getInstance();
-            ReaderArrayService readerArrayService = readerArrayServiceFactory.getDefaultService();
+            ReaderArrayService readerArrayService = readerArrayServiceFactory.getService();
             PrinterArrayServiceFactory printerArrayServiceFactory = PrinterArrayServiceFactory.getInstance();
-            PrinterArrayService printerArrayService = printerArrayServiceFactory.getDefaultService();
+            PrinterArrayService printerArrayService = printerArrayServiceFactory.getService();
 
-            IntArray array = readerArrayService.readFrom("files/array.txt", ReaderArrayService.DEFAULT_DELIM_PATTERN);
+            IntArray array = readerArrayService.readFrom("files/array.txt", ReaderArrayService.DEFAULT_DELIMITER_REGEX);
 
             out.println("Array:");
             printerArrayService.print(out, array);
             out.println('\n');
 
             CalculationArrayServiceFactory calculationArrayServiceFactory = CalculationArrayServiceFactory.getInstance();
-            CalculationArrayService calculationArrayService = calculationArrayServiceFactory.getDefaultService();
+            CalculationArrayService calculationArrayService = calculationArrayServiceFactory.getService();
             String min = toString(calculationArrayService.findMin(array));
             String max = toString(calculationArrayService.findMax(array));
             String sum = toString(calculationArrayService.sum(array));
@@ -39,15 +39,15 @@ public class Main {
                     length, min, max, sum, average, countPositive, countNegative);
 
             SortArrayServiceFactory sortArrayServiceFactory = SortArrayServiceFactory.getInstance();
-            SortArrayService sortArrayService = sortArrayServiceFactory.getDefaultService();
+            SortArrayService sortArrayService = sortArrayServiceFactory.getService();
             IntArray sortedIntArray = sortArrayService.sort(array, IntArrayService.DEFAULT_COMPARATOR);
 
             out.println("Sorted:");
             printerArrayService.print(out, sortedIntArray);
             out.println('\n');
 
-            NumberArrayServiceFactory numberArrayServiceFactory = NumberArrayServiceFactory.getInstance();
-            IntArrayService intArrayService = numberArrayServiceFactory.getDefaultService();
+            IntArrayServiceFactory intArrayServiceFactory = IntArrayServiceFactory.getInstance();
+            IntArrayService intArrayService = intArrayServiceFactory.getService();
             IntArray replaced = intArrayService.replaceIf(array, n -> n.doubleValue() < 0, 31);
 
             out.println("Replaced:");

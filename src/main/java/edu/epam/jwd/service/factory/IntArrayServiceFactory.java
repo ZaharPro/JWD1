@@ -4,17 +4,17 @@ import edu.epam.jwd.service.IntArrayService;
 import edu.epam.jwd.service.ServiceFactory;
 import edu.epam.jwd.service.impl.IntArrayServiceImpl;
 
-public class NumberArrayServiceFactory implements ServiceFactory<IntArrayService> {
-    private static final NumberArrayServiceFactory INSTANCE = new NumberArrayServiceFactory();
+public class IntArrayServiceFactory implements ServiceFactory<IntArrayService> {
+    private static final IntArrayServiceFactory INSTANCE = new IntArrayServiceFactory();
 
-    public static NumberArrayServiceFactory getInstance() {
+    public static IntArrayServiceFactory getInstance() {
         return INSTANCE;
     }
 
     private final IntArrayServiceImpl DEFAULT = new IntArrayServiceImpl();
 
     @Override
-    public IntArrayService getDefaultService() {
+    public IntArrayService getService() {
         return DEFAULT;
     }
 }
